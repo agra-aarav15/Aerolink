@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         target: [esp32, esp32s2, esp32s3, esp32c2, esp32c3, esp32c5, esp32c6, esp32h2]
     steps:
@@ -30,7 +31,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/master'
     permissions:
       contents: write
     steps:
@@ -39,13 +40,15 @@ jobs:
         with:
           path: firmware
           pattern: aerolink-*
+        continue-on-error: true
 
       - name: Organize Firmware Files
         run: |
           mkdir -p release
           for dir in firmware/aerolink-*; do
+            [ -d "$dir" ] || continue
             target=$(basename "$dir" | sed 's/aerolink-//')
-            cp "$dir/aerolink.bin" "release/aerolink-${target}.bin"
+            [ -f "$dir/aerolink.bin" ] && cp "$dir/aerolink.bin" "release/aerolink-${target}.bin"
           done
           ls -la release/
 
@@ -59,16 +62,8 @@ jobs:
 
             Flash address: `0x20000`
 
-            | Target | File |
-            |--------|------|
-            | ESP32 | `aerolink-esp32.bin` |
-            | ESP32-S2 | `aerolink-esp32s2.bin` |
-            | ESP32-S3 | `aerolink-esp32s3.bin` |
-            | ESP32-C2 | `aerolink-esp32c2.bin` |
-            | ESP32-C3 | `aerolink-esp32c3.bin` |
-            | ESP32-C5 | `aerolink-esp32c5.bin` |
-            | ESP32-C6 | `aerolink-esp32c6.bin` |
-            | ESP32-H2 | `aerolink-esp32h2.bin` |
+            Available firmware files for each target.
+            See attached `.bin` files for your board.
 
             ### Flash Instructions
             1. Download the `.bin` for your board

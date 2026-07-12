@@ -51,8 +51,8 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 | Board | Status |
 |-------|--------|
 | ESP32 | ✅ Full Support |
+| ESP32-S2 | ✅ Full Support |
 | ESP32-S3 | ✅ Full Support |
-| ESP32-C3 | ✅ Full Support |
 | ESP32-C5 | ✅ Full Support |
 | ESP32-C6 | ✅ Full Support |
 | WT32-ETH01 | ✅ Ethernet Uplink |

@@ -381,11 +381,11 @@ static esp_err_t create_session(httpd_req_t *req)
  * Key derivation : PBKDF2-HMAC-SHA256, 10 000 iterations, 32-byte output
  * Encryption     : XChaCha20-Poly1305 AEAD (24-byte nonce, 16-byte auth tag)
  *
- * The XChaCha20-Poly1305 implementation is the one bundled with the WireGuard
- * managed component; the symbols are already compiled into the binary.
+ * The XChaCha20-Poly1305 implementation is in xchacha20poly1305.c
+ * (replaces the version previously bundled with esp_wireguard).
  */
 
-/* Forward-declare XChaCha20-Poly1305 from managed_components/esp_wireguard */
+/* Forward-declare XChaCha20-Poly1305 (defined in xchacha20poly1305.c) */
 extern void xchacha20poly1305_encrypt(uint8_t *dst, const uint8_t *src, size_t src_len,
                                       const uint8_t *ad, size_t ad_len,
                                       const uint8_t *nonce, const uint8_t *key);

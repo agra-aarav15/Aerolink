@@ -7,7 +7,6 @@
  *   portmap.c       - Port mapping (NAPT) table management
  *   dhcp_manager.c  - DHCP reservation management
  *   acl_nvs.c       - ACL firewall rule persistence
- *   vpn_manager.c   - WireGuard VPN connection management
  *   netif_hooks.c   - Network interface hooks (byte counting, ACL, PCAP, MSS/PMTU)
  */
 
@@ -58,6 +57,7 @@
 #error "IP_NAPT must be defined"
 #endif
 #include "lwip/lwip_napt.h"
+#include "esp_sntp.h"
 
 #include "router_globals.h"
 #include "lwip/ip_addr.h"
@@ -223,6 +223,17 @@ static void initialize_nvs(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+}
+
+static bool s_sntp_initialized = false;
+static void init_sntp_if_needed(void)
+{
+    if (s_sntp_initialized) return;
+    s_sntp_initialized = true;
+    ESP_LOGI(TAG, "Initializing SNTP");
+    esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+    esp_sntp_setservername(0, "pool.ntp.org");
+    esp_sntp_init();
 }
 
 static void initialize_console(void)

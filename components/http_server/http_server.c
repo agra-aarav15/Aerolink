@@ -781,7 +781,7 @@ static esp_err_t config_export_handler(httpd_req_t *req)
     }
 
     httpd_resp_set_type(req, "application/json");
-    httpd_resp_set_hdr(req, "Content-Disposition", "attachment; filename=\"esp32_nat_config.json\"");
+    httpd_resp_set_hdr(req, "Content-Disposition", "attachment; filename=\"aerolink_config.json\"");
 
     if (pass[0] == '\0') {
         /* No passphrase — send plain JSON (VPN secrets already omitted) */

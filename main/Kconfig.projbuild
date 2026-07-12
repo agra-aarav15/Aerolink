@@ -10,7 +10,7 @@ menu "Example Configuration"
 
 endmenu
 
-menu "NAT Router Uplink"
+menu "AeroLink Uplink"
 
     choice UPLINK_TYPE
         prompt "Uplink interface"

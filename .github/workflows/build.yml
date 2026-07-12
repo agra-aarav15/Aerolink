@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [esp32, esp32s2, esp32s3, esp32c2, esp32c3, esp32c5, esp32c6, esp32h2]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,10 +19,63 @@ jobs:
         uses: espressif/esp-idf-ci-action@v1
         with:
           esp_idf_version: v5.5
-          target: esp32
+          target: ${{ matrix.target }}
 
       - name: Upload Firmware
         uses: actions/upload-artifact@v4
         with:
-          name: aerolink-firmware
+          name: aerolink-${{ matrix.target }}
           path: build/aerolink.bin
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    permissions:
+      contents: write
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: firmware
+          pattern: aerolink-*
+
+      - name: Organize Firmware Files
+        run: |
+          mkdir -p release
+          for dir in firmware/aerolink-*; do
+            target=$(basename "$dir" | sed 's/aerolink-//')
+            cp "$dir/aerolink.bin" "release/aerolink-${target}.bin"
+          done
+          ls -la release/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: "AeroLink Firmware — Build #${{ github.run_number }}"
+          body: |
+            ## AeroLink Firmware
+
+            Flash address: `0x20000`
+
+            | Target | File |
+            |--------|------|
+            | ESP32 | `aerolink-esp32.bin` |
+            | ESP32-S2 | `aerolink-esp32s2.bin` |
+            | ESP32-S3 | `aerolink-esp32s3.bin` |
+            | ESP32-C2 | `aerolink-esp32c2.bin` |
+            | ESP32-C3 | `aerolink-esp32c3.bin` |
+            | ESP32-C5 | `aerolink-esp32c5.bin` |
+            | ESP32-C6 | `aerolink-esp32c6.bin` |
+            | ESP32-H2 | `aerolink-esp32h2.bin` |
+
+            ### Flash Instructions
+            1. Download the `.bin` for your board
+            2. Connect ESP32 via USB
+            3. Flash to address `0x20000`
+            4. Open serial monitor at 115200 baud
+            5. Connect to `AeroLink` WiFi network
+            6. Open `http://192.168.4.1` in browser
+          files: release/*
+          make_latest: true

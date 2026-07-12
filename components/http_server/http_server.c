@@ -2055,7 +2055,7 @@ static esp_err_t config_get_handler(httpd_req_t *req)
         rc_enabled_checked, rc_disabled_checked,
         rc_status_color, rc_status_text, rc_kick_section,
         rc_config.port,
-        rc_ap_chk, rc_sta_chk, rc_vpn_chk,
+        rc_ap_chk, rc_sta_chk,
         (unsigned long)rc_config.idle_timeout_sec);
     SEND_CHUNK(req, section, HTTPD_RESP_USE_STRLEN);
 
@@ -2110,17 +2110,6 @@ static esp_err_t config_get_handler(httpd_req_t *req)
 
     /* Chunk 9b: OTA upload form, config backup/restore, reboot */
     SEND_CHUNK(req, CONFIG_CHUNK_TAIL2, HTTPD_RESP_USE_STRLEN);
-
-    /* Chunk 9c: Danger Zone (web bind + disable interface).
-     * Uses its own buffer — CONFIG_CHUNK_DANGER exceeds the shared section[2048]. */
-    {
-        char danger[2560];
-        snprintf(danger, sizeof(danger), CONFIG_CHUNK_DANGER,
-            (s_web_bind & RC_BIND_AP)  ? "checked" : "",
-            (s_web_bind & RC_BIND_STA) ? "checked" : "",
-            (s_web_bind & RC_BIND_VPN) ? "checked" : "");
-        SEND_CHUNK(req, danger, HTTPD_RESP_USE_STRLEN);
-    }
 
     /* End chunked response */
     SEND_CHUNK(req, NULL, 0);

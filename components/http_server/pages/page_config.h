@@ -14,12 +14,12 @@
 </head>\
 <style>\
 *{box-sizing:border-box;margin:0;padding:0;}\
-body{font-family:'Inter',sans-serif;background:#000;color:#fff;padding:1.5rem;min-height:100vh;display:flex;justify-content:center;}\
+body{font-family:'Inter',sans-serif;background:#000;color:#fff;padding:1.2rem;min-height:100vh;display:flex;justify-content:center;}\
 #wrap{width:100%;max-width:520px;}\
-h1{font-size:1.1rem;font-weight:300;color:#fff;letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;}\
-h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:2px;margin:1.5rem 0 0.8rem;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:0.5rem;}\
-.glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;margin-bottom:1rem;}\
-a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.5rem;transition:color 0.3s;}\
+h1{font-size:1.1rem;font-weight:300;color:#fff;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.5rem;}\
+h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:2px;margin:1.2rem 0 0.6rem;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:0.4rem;}\
+.glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:0.8rem;}\
+a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
@@ -137,7 +137,7 @@ setTimeout(\"location.href='/'\",8000);}\
 <tr><td>Service</td><td><label style='margin-right:0.8rem;'><input type='radio' name='rc_enabled' value='1' %s> On</label><label><input type='radio' name='rc_enabled' value='0' %s> Off</label></td></tr>\
 <tr><td>Status</td><td><span style='color:%s;font-size:0.8rem;'>%s</span>%s</td></tr>\
 <tr><td>Port</td><td><input type='number' name='rc_port' value='%d' min='1' max='65535' style='width:80px;'/></td></tr>\
-<tr><td>Bind</td><td><label style='margin-right:0.6rem;'><input type='checkbox' name='rc_bind_ap' value='1' %s> AP</label><label style='margin-right:0.6rem;'><input type='checkbox' name='rc_bind_sta' value='1' %s> STA</label><label><input type='checkbox' name='rc_bind_vpn' value='1' %s> VPN</label></td></tr>\
+<tr><td>Bind</td><td><label style='margin-right:0.6rem;'><input type='checkbox' name='rc_bind_ap' value='1' %s> AP</label><label><input type='checkbox' name='rc_bind_sta' value='1' %s> STA</label></td></tr>\
 <tr><td>Timeout</td><td><input type='number' name='rc_timeout' value='%lu' min='0' max='86400' style='width:80px;'/> <small>sec</small></td></tr>\
 <tr><td></td><td><input type='submit' value='Save' class='ok-btn'/></td></tr>\
 </table></form></div>"
@@ -202,40 +202,8 @@ xhr.onerror=function(){document.getElementById('otaStatus').textContent='Connect
 document.getElementById('cfgFile').addEventListener('change',function(){document.getElementById('cfgFileName').textContent=this.files[0]?this.files[0].name:'Choose file';});\
 function downloadConfig(){var pass=document.getElementById('expPass').value;document.getElementById('exportStatus').textContent='Downloading...';fetch('/api/config-export',{method:'POST',body:JSON.stringify({pass:pass}),headers:{'Content-Type':'application/json'}}).then(function(r){if(!r.ok)throw new Error();var cd=r.headers.get('Content-Disposition')||'';var fn='config.json';var m=cd.match(/filename=\"([^\"]+)\"/);if(m)fn=m[1];return r.blob().then(function(b){return{b:b,fn:fn};});}).then(function(o){var url=URL.createObjectURL(o.b);var a=document.createElement('a');a.href=url;a.download=o.fn;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(url);a.remove();},100);document.getElementById('exportStatus').textContent='Done';}).catch(function(){document.getElementById('exportStatus').textContent='Failed';});}\
 function uploadConfig(){var f=document.getElementById('cfgFile').files[0];var pass=document.getElementById('impPass').value;if(!f){document.getElementById('importStatus').textContent='Select a file';return;}var r=new FileReader();r.onload=function(){document.getElementById('importStatus').textContent='Uploading...';var h={'Content-Type':'application/json'};if(pass)h['X-Config-Pass']=pass;fetch('/api/config-import',{method:'POST',body:r.result,headers:h}).then(function(r){return r.json();}).then(function(d){if(d.ok){document.getElementById('wrap').style.display='none';document.getElementById('rebootScreen').style.display='block';var c=5;var el=document.getElementById('countdown');var t=setInterval(function(){c--;el.textContent=c;if(c<=0){clearInterval(t);window.location.href='/';}},1000);}else{document.getElementById('importStatus').textContent=d.msg||'Failed';}});};r.readAsText(f);}\
-</script>"
-
-/* Danger Zone */
-#define CONFIG_CHUNK_DANGER_COMMON_HEAD "\
-<div class='glass' style='border-color:rgba(244,67,54,0.15);'>\
-<h2 style='color:#f44336;'>Danger Zone</h2>\
-<h3 style='font-size:0.75rem;color:#888;margin:0.5rem 0;'>Web UI Access</h3>\
-<p style='color:#444;font-size:0.75rem;margin-bottom:0.5rem;'>Restrict interfaces. Unchecking current interface locks you out.</p>\
-<form action='' method='GET'>\
-<input type='hidden' name='web_bind_save' value='1'/>\
-<table>\
-<tr><td style='color:#f44336;font-weight:600;font-size:0.7rem;'>Interfaces</td><td>\
-<label style='margin-right:0.6rem;color:#888;font-size:0.8rem;'><input type='checkbox' name='web_bind_ap' value='1' %s> AP</label>"
-
-#define CONFIG_CHUNK_DANGER_COMMON_TAIL "\
-<label style='color:#888;font-size:0.8rem;'><input type='checkbox' name='web_bind_vpn' value='1' %s> VPN</label>\
-</td></tr>\
-<tr><td></td><td><input type='submit' value='Save' class='red-btn' onclick='return confirm(\"Continue?\");'/></td></tr>\
-</table></form>\
-<h3 style='font-size:0.75rem;color:#888;margin:1rem 0 0.5rem;'>Disable Web UI</h3>\
-<form action='' method='GET'>\
-<table><tr><td style='color:#f44336;font-weight:600;font-size:0.7rem;'>Disable</td>\
-<td><input type='submit' name='disable_interface' value='Disable' class='red-btn' onclick='return confirm(\"Disable web UI?\");'/></td></tr></table></form></div>\
+</script>\
 <div style='text-align:center;margin-top:1.5rem;'><a href='/' style='color:#555;text-decoration:none;font-size:0.8rem;'>← Home</a></div>\
 </div></body></html>"
 
-#if CONFIG_ETH_UPLINK
-#define CONFIG_CHUNK_DANGER \
-    CONFIG_CHUNK_DANGER_COMMON_HEAD \
-    "<label style='color:#888;font-size:0.8rem;'><input type='checkbox' name='web_bind_sta' value='1' %s> ETH</label>" \
-    CONFIG_CHUNK_DANGER_COMMON_TAIL
-#else
-#define CONFIG_CHUNK_DANGER \
-    CONFIG_CHUNK_DANGER_COMMON_HEAD \
-    "<label style='color:#888;font-size:0.8rem;'><input type='checkbox' name='web_bind_sta' value='1' %s> STA</label>" \
-    CONFIG_CHUNK_DANGER_COMMON_TAIL
-#endif
+/* Danger Zone removed — VPN and web bind restrictions no longer shown */

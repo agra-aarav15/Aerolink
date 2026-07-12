@@ -24,7 +24,6 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 |---------------------|------------------|
 | $50–$150+ | **~$6–$15** (ESP32 board) |
 | Locked firmware | **100% open source** |
-| No VPN | **WireGuard built-in** |
 | Basic UI | **Glassmorphism dashboard** |
 | Cloud-dependent | **Runs fully local** |
 | Vendor abandonware | **You own it forever** |
@@ -40,7 +39,6 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 | 🌐 **Wi-Fi Extension** | Extend your existing Wi-Fi network seamlessly |
 | 🎨 **Glassmorphism UI** | Pure black + frosted glass dashboard with smooth animations |
 | 📡 **Network Scanner** | Scan and connect to available networks |
-| 🔒 **WireGuard VPN** | Built-in VPN support for secure connections |
 | 🛡️ **Firewall (ACL)** | Fine-grained access control rules |
 | 🔀 **Port Forwarding** | Map external ports to internal devices |
 | 📊 **DHCP Reservations** | Assign static IPs to connected devices |
@@ -126,8 +124,6 @@ AeroLink/
 ## 📜 Licence
 
 MIT Licence — see [LICENCE](LICENCE) for details.
-
-Third-party component: WireGuard VPN module.
 
 ## 🙏 Credits
 

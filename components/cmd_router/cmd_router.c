@@ -314,7 +314,7 @@ static char *trim_ws(char *s)
     return s;
 }
 
-/* Parse a standard WireGuard .conf file and persist the mapped vpn_* settings.
+/* Parse a .conf file and persist the mapped vpn_* settings.
  * Maps [Interface]/[Peer] keys onto this router's existing NVS parameters; see
  * vpn_config.h. Sets vpn_enabled=1 on success. IPv6 addresses are skipped. */
 esp_err_t vpn_import_conf(const char *text)
@@ -375,7 +375,7 @@ esp_err_t vpn_import_conf(const char *text)
 
     if (privkey[0] == '\0' || pubkey[0] == '\0' ||
         endpoint_host[0] == '\0' || address_ip[0] == '\0') {
-        ESP_LOGE(TAG, "WireGuard import: missing required field (need PrivateKey, PublicKey, Endpoint, Address)");
+        ESP_LOGE(TAG, "VPN import: missing required field (need PrivateKey, PublicKey, Endpoint, Address)");
         return ESP_ERR_INVALID_ARG;
     }
 
@@ -391,7 +391,7 @@ esp_err_t vpn_import_conf(const char *text)
     if (route_all >= 0) set_config_param_int("vpn_rall", route_all);
     set_config_param_int("vpn_enabled", 1);
 
-    ESP_LOGI(TAG, "WireGuard config imported (endpoint=%s:%d ip=%s dns=%s route_all=%d)",
+    ESP_LOGI(TAG, "VPN config imported (endpoint=%s:%d ip=%s dns=%s route_all=%d)",
              endpoint_host, port, address_ip, dns[0] ? dns : "(none)", route_all);
     return ESP_OK;
 }
@@ -1431,7 +1431,7 @@ static int show(int argc, char **argv)
         printf("  config   - Show router configuration (AP/STA settings)\n");
         printf("  mappings - Show DHCP pool, reservations and port mappings\n");
         printf("  acl      - Show firewall ACL rules\n");
-        printf("  vpn      - Show WireGuard VPN status and config\n");
+        printf("  vpn      - Show VPN status and config\n");
         return 1;
     }
 
@@ -1701,7 +1701,7 @@ static int show(int argc, char **argv)
         }
 
     } else if (strcmp(type, "vpn") == 0) {
-        printf("WireGuard VPN:\n");
+        printf("VPN:\n");
         printf("==============\n");
         printf("Enabled: %s\n", vpn_enabled ? "yes" : "no");
         if (vpn_enabled) {
@@ -3725,7 +3725,7 @@ static int set_vpn_cmd(int argc, char **argv)
 
 static void register_set_vpn(void)
 {
-    set_vpn_args.privkey   = arg_str0(NULL, NULL, "<private_key>", "WireGuard private key (base64)");
+    set_vpn_args.privkey   = arg_str0(NULL, NULL, "<private_key>", "VPN private key (base64)");
     set_vpn_args.pubkey    = arg_str0(NULL, NULL, "<public_key>", "Peer public key (base64)");
     set_vpn_args.endpoint  = arg_str0(NULL, NULL, "<endpoint>", "Peer endpoint host/IP");
     set_vpn_args.address   = arg_str0(NULL, NULL, "<address>", "Tunnel IP (e.g. 10.0.0.2)");
@@ -3741,7 +3741,7 @@ static void register_set_vpn(void)
 
     const esp_console_cmd_t cmd = {
         .command = "set_vpn",
-        .help = "Configure WireGuard VPN (restart to apply)",
+        .help = "Configure VPN (restart to apply)",
         .hint = NULL,
         .func = &set_vpn_cmd,
         .argtable = &set_vpn_args

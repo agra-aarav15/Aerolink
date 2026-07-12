@@ -1,4 +1,4 @@
-/* ESP32 NAT Router - Main application
+/* AeroLink - Main application
  *
  * Entry point, global variable definitions, WiFi/Ethernet initialization,
  * event handlers, LED status thread, and console REPL.
@@ -119,7 +119,7 @@ int32_t disable_time_check = 0;  // 0=off, 1=on
 uint8_t sta_band = STA_BAND_AUTO;
 #endif
 
-// WireGuard VPN settings
+// VPN settings (dead code — kept for compilation)
 int32_t vpn_enabled = 0;
 int32_t vpn_port = 51820;
 int32_t vpn_keepalive = 0;
@@ -189,7 +189,7 @@ esp_netif_t* wifiSTA;
 
 #include "http_server.h"
 
-static const char *TAG = "ESP32 NAT router";
+static const char *TAG = "AeroLink";
 
 /* Console command history can be stored to and loaded from a file.
  * The easiest way to do this is to use FATFS filesystem on top of
@@ -459,7 +459,7 @@ static void eth_event_handler(void* arg, esp_event_base_t event_base,
 
         // esp_netif just (re)set netif_default to the uplink on this GOT_IP. If
         // the VPN is up in route-all mode, restore the tunnel as the default
-        // route so forwarded traffic keeps going through WireGuard across DHCP
+        // route so forwarded traffic keeps going across DHCP
         // lease renewals and uplink reconnects.
         vpn_reassert_default_route();
 
@@ -715,7 +715,7 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base,
 
         // esp_netif just (re)set netif_default to the uplink on this GOT_IP. If
         // the VPN is up in route-all mode, restore the tunnel as the default
-        // route so forwarded traffic keeps going through WireGuard across DHCP
+        // route so forwarded traffic keeps going across DHCP
         // lease renewals and uplink reconnects.
         vpn_reassert_default_route();
 
@@ -972,7 +972,7 @@ void eth_init(const char* static_ip, const char* subnet_mask, const char* gatewa
     }
     ESP_ERROR_CHECK(esp_eth_start(eth_handle));
 
-    ESP_LOGI(TAG, "Ethernet-to-WiFi NAT Router initialized");
+    ESP_LOGI(TAG, "Ethernet uplink initialized");
 }
 #else
 void wifi_init(const uint8_t* mac, const char* ssid, const char* ent_username, const char* ent_identity, const char* passwd, const char* static_ip, const char* subnet_mask, const char* gateway_addr, const uint8_t* ap_mac, const char* ap_ssid, const char* ap_passwd, const char* ap_ip)
@@ -1236,7 +1236,7 @@ void app_main(void)
     get_config_param_blob("ap_mac", &ap_mac, 6);
     get_config_param_str("ap_ssid", &ap_ssid);
     if (ap_ssid == NULL) {
-        ap_ssid = param_set_default("ESP32_NAT_Router");
+        ap_ssid = param_set_default("AeroLink");
     }
     get_config_param_str("ap_passwd", &ap_passwd);
     if (ap_passwd == NULL) {
@@ -1421,7 +1421,7 @@ void app_main(void)
     }
 #endif
 
-    // Load WireGuard VPN settings from NVS
+    // Load VPN settings from NVS (dead code — vpn_enabled stays 0)
     int vpn_setting = 0;
     if (get_config_param_int("vpn_enabled", &vpn_setting) == ESP_OK) {
         vpn_enabled = (int32_t)vpn_setting;
@@ -1590,16 +1590,16 @@ void app_main(void)
     /* Prompt to be printed before each line.
      * This can be customized, made dynamic, etc.
      */
-    const char* prompt = LOG_COLOR_I "esp32> " LOG_RESET_COLOR;
+    const char* prompt = LOG_COLOR_I "aerolink> " LOG_RESET_COLOR;
 
     printf("\n"
-           "ESP32 NAT ROUTER\n"
+           "AeroLink\n"
            "Type 'help' to get the list of commands.\n"
            "Use UP/DOWN arrows to navigate through command history.\n"
            "Press TAB when typing command name to auto-complete.\n");
 
 #if CONFIG_ETH_UPLINK
-    printf("\nESP32 Ethernet-to-WiFi NAT Router\n"
+    printf("\nAeroLink Ethernet Uplink\n"
            "Configure AP using 'set_ap' and restart.\n");
 #else
     if (strlen(ssid) == 0) {

@@ -1,7 +1,7 @@
 /*
  * XChaCha20-Poly1305 AEAD implementation for AeroLink.
  *
- * Replaces the XChaCha20-Poly1305 that was bundled with esp_wireguard.
+ * Standalone implementation for AeroLink encrypted config backups.
  * Used by config import/export for encrypted backups.
  *
  * Algorithm:

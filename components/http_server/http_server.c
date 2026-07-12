@@ -5,7 +5,7 @@
  *   /config    - Router configuration: AP/STA settings, static IP, MAC addresses
  *   /mappings  - DHCP reservations and port forwarding management
  *   /firewall  - ACL firewall rules (4 lists, add/delete, hit statistics)
- *   /vpn       - (removed) WireGuard VPN disabled
+ *   /vpn       - (removed)
  *   /scan      - WiFi network scanner (STA uplink only)
  *
  * Password-protected pages use cookie-based sessions (30-min timeout).
@@ -305,7 +305,7 @@ static bool check_csrf(httpd_req_t *req)
         if (strcmp(origin, expected) == 0) return true;
     }
 
-    /* Also accept requests originating from the VPN/WireGuard interface */
+    /* Also accept requests originating from the VPN interface */
     if (vpn_tunnel_ip != 0) {
         addr.addr = vpn_tunnel_ip;
         snprintf(expected, sizeof(expected), "http://" IPSTR, IP2STR(&addr));
@@ -382,7 +382,7 @@ static esp_err_t create_session(httpd_req_t *req)
  * Encryption     : XChaCha20-Poly1305 AEAD (24-byte nonce, 16-byte auth tag)
  *
  * The XChaCha20-Poly1305 implementation is in xchacha20poly1305.c
- * (replaces the version previously bundled with esp_wireguard).
+ * (standalone implementation).
  */
 
 /* Forward-declare XChaCha20-Poly1305 (defined in xchacha20poly1305.c) */
@@ -550,7 +550,7 @@ static char *config_decrypt_json(const char *enc_json, const char *pass)
     return (char *)plain;
 }
 
-/* include_secrets: if false, WireGuard private key and PSK are omitted (plain-text export).
+/* include_secrets: if false, VPN private key and PSK are omitted (plain-text export).
  *                  if true,  all keys are included (encrypted export only). */
 static char *nvs_export_to_json_robust(bool include_secrets)
 {
@@ -570,8 +570,8 @@ static char *nvs_export_to_json_robust(bool include_secrets)
         /* Skip secrets for plain (unencrypted) exports:
          *   passwd      — STA WiFi password (also used as WPA-Enterprise EAP password)
          *   ap_passwd   — AP WiFi password
-         *   vpn_privkey — WireGuard private key
-         *   vpn_psk     — WireGuard pre-shared key */
+         *   vpn_privkey — VPN private key
+         *   vpn_psk     — VPN pre-shared key */
         if (!include_secrets &&
             (strcmp(info.key, "passwd")      == 0 ||
              strcmp(info.key, "ap_passwd")   == 0 ||
@@ -773,7 +773,7 @@ static esp_err_t config_export_handler(httpd_req_t *req)
         }
     }
 
-    /* Include WireGuard secrets only in encrypted exports */
+    /* Include VPN secrets only in encrypted exports */
     char *plain = nvs_export_to_json_robust(pass[0] != '\0');
     if (!plain) {
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Export failed");
@@ -784,7 +784,7 @@ static esp_err_t config_export_handler(httpd_req_t *req)
     httpd_resp_set_hdr(req, "Content-Disposition", "attachment; filename=\"esp32_nat_config.json\"");
 
     if (pass[0] == '\0') {
-        /* No passphrase — send plain JSON (WireGuard secrets already omitted) */
+        /* No passphrase — send plain JSON (VPN secrets already omitted) */
         httpd_resp_send(req, plain, HTTPD_RESP_USE_STRLEN);
         free(plain);
     } else {

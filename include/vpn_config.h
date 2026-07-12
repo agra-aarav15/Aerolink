@@ -1,4 +1,4 @@
-/* VPN stub — WireGuard removed. All VPN calls are no-ops. */
+/* VPN stub — All VPN calls are no-ops. */
 #pragma once
 #include <stdbool.h>
 #include <stdint.h>

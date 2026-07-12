@@ -1621,7 +1621,7 @@ void app_main(void)
         /* Since the terminal doesn't support escape sequences,
          * don't use color codes in the prompt.
          */
-        prompt = "esp32> ";
+        prompt = "aerolink> ";
 #endif //CONFIG_LOG_COLORS
     }
 

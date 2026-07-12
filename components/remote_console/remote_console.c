@@ -62,7 +62,7 @@ static const char *RC_BANNER =
     "============================================\r\n"
     "\r\n";
 
-static const char *RC_PROMPT = "esp32> ";
+static const char *RC_PROMPT = "aerolink> ";
 static const char *RC_AUTH_PROMPT = "Password: ";
 static const char *RC_AUTH_OK = "\r\nAuthentication successful.\r\n\r\n";
 static const char *RC_AUTH_FAIL = "\r\nAuthentication failed.\r\n";

@@ -14,7 +14,6 @@
 
 AeroLink transforms your ESP32 into a powerful wireless range extender with a **premium, modern web interface**. Built from the ground up by **Aarav** ([@agra-aarav15](https://github.com/agra-aarav15)).
 
-> *"Not just a router — it's a statement."*
 
 ---
 
@@ -28,7 +27,7 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 | Cloud-dependent | **Runs fully local** |
 | Vendor abandonware | **You own it forever** |
 
-**Best Wi-Fi extender per dollar on the planet.** Built by Aarav, for everyone.
+**Best Wi-Fi extender per dollar on the planet.** Built for everyone.
 
 ---
 
@@ -73,13 +72,13 @@ esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash \
   0x20000 aerolink.bin
 ```
 
-### Method 2: GitHub Actions (Phone Friendly — No PC needed!)
+### Future Updates (Phone Friendly — No PC needed!)
 1. Fork this repo → **Actions** → **Build AeroLink Firmware** → **Run workflow**
 2. Wait ~3 min → Click build → Download **aerolink-firmware** zip
 3. Extract `aerolink.bin` → Flash via ESP Flash Tool app on phone at **0x20000**
 4. Done! Connect to "AeroLink" WiFi → open `192.168.4.1`
 
-> **Note:** After first flash, future updates via **⚙️ Config → OTA Update** in the web dashboard.
+> **Note:** After first flash, you can do future updates via **⚙️ Config → OTA Update** in the web dashboard.
 
 ---
 

@@ -32,10 +32,10 @@ form{margin-bottom:0.5rem;}\
 table{width:100%;border-collapse:collapse;}\
 td{padding:0.4rem 0;vertical-align:top;}\
 td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:35%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
-input[type='text'],input[type='password'],input[type='number']{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;}\
+input[type='text'],input[type='password'],input[type='number']{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;box-sizing:border-box;overflow:hidden;}\
 input:focus{outline:none;border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);}\
 input::placeholder{color:#333;}\
-select{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;cursor:pointer;-webkit-appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.6rem center;padding-right:1.5rem;}\
+select{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;cursor:pointer;-webkit-appearance:none;box-sizing:border-box;overflow:hidden;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.6rem center;padding-right:1.5rem;}\
 select option{background:#111;color:#fff;}\
 input[type='checkbox'],input[type='radio']{-webkit-appearance:none;appearance:none;width:16px;height:16px;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.04);cursor:pointer;vertical-align:middle;position:relative;}\
 input[type='radio']{border-radius:50%%;}\

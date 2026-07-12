@@ -29,13 +29,13 @@ textarea:focus{animation:glow 2s ease-in-out infinite;}\
 table{width:100%%;border-collapse:collapse;}\
 td{padding:0.4rem 0;vertical-align:top;}\
 td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:35%%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
-input[type='text'],input[type='number'],input[type='password']{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;}\
+input[type='text'],input[type='number'],input[type='password']{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;box-sizing:border-box;overflow:hidden;}\
 input:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 input::placeholder{color:#333;}\
-textarea{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.8rem;font-family:monospace;resize:vertical;}\
+textarea{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.8rem;font-family:monospace;resize:vertical;box-sizing:border-box;}\
 textarea:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 textarea::placeholder{color:#333;}\
-select{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;-webkit-appearance:none;}\
+select{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;-webkit-appearance:none;box-sizing:border-box;overflow:hidden;}\
 select option{background:#111;color:#fff;}\
 .ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.6rem;font-size:0.85rem;cursor:pointer;width:100%%;margin-top:0.3rem;}\
 .ok-btn:hover{background:rgba(255,255,255,0.14);}\

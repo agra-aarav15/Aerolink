@@ -1285,7 +1285,7 @@ static esp_err_t index_get_handler(httpd_req_t *req)
     if (authenticated) {
         SEND_CHUNK(req,
             "<div style='text-align: right; margin-bottom: 0.5rem;'>"
-            "<a href='/?logout=1' style='padding: 0.4rem 1rem; background: rgba(255,82,82,0.15); color: #ff5252; border: 1px solid #ff5252; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 500;'>Logout</a>"
+            "<a href='/?logout=1' style='padding: 0.4rem 1rem; background: rgba(255,255,255,0.04); color: #888; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; text-decoration: none; font-size: 0.75rem; font-weight: 500; transition: all 0.3s;'>Logout</a>"
             "</div>", HTTPD_RESP_USE_STRLEN);
     }
 
@@ -1409,12 +1409,12 @@ static esp_err_t index_get_handler(httpd_req_t *req)
     if (login_message[0] != '\0') {
         const char* msg_style;
         if (strstr(login_message, "ERROR") != NULL) {
-            msg_style = "background: #ffebee; color: #c62828; border: 2px solid #ef5350";
+            msg_style = "background: rgba(244,67,54,0.1); color: #f44336; border: 1px solid rgba(244,67,54,0.2)";
         } else {
-            msg_style = "background: #e8f5e9; color: #2e7d32; border: 2px solid #66bb6a";
+            msg_style = "background: rgba(76,175,80,0.1); color: #4caf50; border: 1px solid rgba(76,175,80,0.2)";
         }
         snprintf(row, sizeof(row),
-                 "<div style='margin-top: 1.5rem; padding: 1rem; %s; border-radius: 8px; font-size: 0.95rem;'>%s</div>",
+                 "<div style='margin-top: 1rem; padding: 0.8rem; %s; border-radius: 12px; font-size: 0.8rem;'>%s</div>",
                  msg_style, login_message);
         SEND_CHUNK(req, row, HTTPD_RESP_USE_STRLEN);
     }
@@ -1422,24 +1422,23 @@ static esp_err_t index_get_handler(httpd_req_t *req)
     /* Show warning if no password protection */
     if (!password_protection_enabled) {
         SEND_CHUNK(req,
-            "<div style='margin-top: 1.5rem; padding: 1rem; background: #fff3cd; border: 2px solid #ffa726; border-radius: 8px;'>"
-            "<strong style='color: #f57c00;'>⚠ No Password Protection</strong>"
-            "<p style='margin-top: 0.5rem; color: #666; font-size: 0.9rem;'>Anyone on this network can access router settings. Set a password below.</p>"
+            "<div style='margin-top: 1rem; padding: 0.8rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,152,0,0.3); border-radius: 12px;'>"
+            "<p style='color: #ff9800; font-size: 0.75rem; margin: 0;'>⚠ No password set — anyone can access settings</p>"
             "</div>", HTTPD_RESP_USE_STRLEN);
     }
 
     /* Show login form if password is set and not authenticated */
     if (password_protection_enabled && !authenticated) {
         SEND_CHUNK(req,
-            "<div style='margin-top: 1.5rem; padding: 1.5rem; background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 12px;'>"
-            "<h2 style='margin-top: 0; margin-bottom: 1rem; color: #00d9ff; font-size: 1.1rem;'>🔒 Login Required</h2>"
+            "<div class='glass' style='margin-top: 1rem;'>"
+            "<h2>🔒 Login</h2>"
             "<form action='/' method='POST'>"
             /* Hidden username field gives iOS/Safari and password managers an account
              * to associate the saved password with, so AutoFill works on this
              * password-only login instead of demanding a username. */
             "<input type='text' name='username' value='admin' autocomplete='username' style='display:none' aria-hidden='true' tabindex='-1'/>"
-            "<input type='password' name='login_password' placeholder='Enter password' autocomplete='current-password' style='width: 100%; padding: 0.75rem; margin-bottom: 0.75rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; color: #e0e0e0; font-size: 1rem;'/>"
-            "<input type='submit' value='Login' style='width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;'/>"
+            "<input type='password' name='login_password' placeholder='Enter password' autocomplete='current-password' style='width: 100%%; padding: 0.6rem; margin-bottom: 0.6rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: #fff; font-size: 0.85rem; box-sizing: border-box;'/>"
+            "<input type='submit' value='Login' style='width: 100%%; padding: 0.6rem; background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; box-sizing: border-box;'/>"
             "</form>"
             "</div>", HTTPD_RESP_USE_STRLEN);
     }
@@ -1448,21 +1447,21 @@ static esp_err_t index_get_handler(httpd_req_t *req)
     if (authenticated || !password_protection_enabled) {
         const char* form_title = password_protection_enabled ? "Change Password" : "Set Password";
         SEND_CHUNK(req,
-            "<div style='margin-top: 1.5rem; padding: 1.5rem; background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 12px;'>"
-            "<h2 style='margin-top: 0; margin-bottom: 1rem; color: #00d9ff; font-size: 1.1rem;'>🔑 ", HTTPD_RESP_USE_STRLEN);
+            "<div class='glass' style='margin-top: 1rem;'>"
+            "<h2>🔑 ", HTTPD_RESP_USE_STRLEN);
         SEND_CHUNK(req, form_title, HTTPD_RESP_USE_STRLEN);
         SEND_CHUNK(req,
             "</h2>"
             /* POST keeps the new password out of the URL and makes the Origin-header
              * CSRF check effective (browsers send Origin on POST but not GET). */
             "<form action='/' method='POST'>"
-            "<input type='password' name='new_password' placeholder='New password (empty to disable)' autocomplete='new-password' style='width: 100%; padding: 0.75rem; margin-bottom: 0.75rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; color: #e0e0e0; font-size: 1rem;'/>"
-            "<input type='password' name='confirm_password' placeholder='Confirm password' autocomplete='new-password' style='width: 100%; padding: 0.75rem; margin-bottom: 0.75rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; color: #e0e0e0; font-size: 1rem;'/>"
+            "<input type='password' name='new_password' placeholder='New password (empty to disable)' autocomplete='new-password' style='width: 100%%; padding: 0.6rem; margin-bottom: 0.6rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: #fff; font-size: 0.85rem; box-sizing: border-box;'/>"
+            "<input type='password' name='confirm_password' placeholder='Confirm password' autocomplete='new-password' style='width: 100%%; padding: 0.6rem; margin-bottom: 0.6rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: #fff; font-size: 0.85rem; box-sizing: border-box;'/>"
             "<input type='submit' value='", HTTPD_RESP_USE_STRLEN);
         SEND_CHUNK(req, form_title, HTTPD_RESP_USE_STRLEN);
         SEND_CHUNK(req,
-            "' style='width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;'/>"
-            "<p style='margin-top: 0.75rem; color: #888; font-size: 0.85rem;'>Leave empty to disable password protection.</p>"
+            "' style='width: 100%%; padding: 0.6rem; background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; box-sizing: border-box;'/>"
+            "<p style='margin-top: 0.5rem; color: #555; font-size: 0.7rem;'>Leave empty to disable password protection.</p>"
             "</form>"
             "</div>", HTTPD_RESP_USE_STRLEN);
     }

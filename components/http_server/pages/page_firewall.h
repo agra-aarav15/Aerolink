@@ -30,7 +30,7 @@ a.home:hover{color:#aaa;}\
 .ftbl{width:100%%;border-collapse:collapse;}\
 .ftbl td{padding:0.3rem 0;vertical-align:top;}\
 .ftbl td:first-child{color:#444;font-size:0.7rem;padding-right:0.5rem;width:20%%;text-align:right;text-transform:uppercase;}\
-input[type='text'],input[type='number'],select{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:#fff;padding:0.4rem;font-size:0.8rem;}\
+input[type='text'],input[type='number'],select{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:#fff;padding:0.4rem;font-size:0.8rem;box-sizing:border-box;overflow:hidden;}\
 input:focus,select:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 .ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.4rem 0.8rem;font-size:0.8rem;cursor:pointer;width:100%%;margin-top:0.2rem;}\
 .ok-btn:hover{background:rgba(255,255,255,0.14);}\

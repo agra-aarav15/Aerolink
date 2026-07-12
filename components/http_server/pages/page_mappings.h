@@ -34,7 +34,7 @@ a.home:hover{color:#aaa;}\
 table{width:100%%;border-collapse:collapse;}\
 td{padding:0.3rem 0;vertical-align:top;}\
 td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:30%%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
-input[type='text'],input[type='number'],select{width:100%%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;}\
+input[type='text'],input[type='number'],select{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;overflow:hidden;}\
 input:focus,select:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 input::placeholder{color:#333;}\
 select{cursor:pointer;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.5rem center;padding-right:1.5rem;-webkit-appearance:none;}\

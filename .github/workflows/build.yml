@@ -22,11 +22,15 @@ jobs:
           esp_idf_version: v5.5
           target: ${{ matrix.target }}
 
-      - name: Upload Firmware
+      - name: Upload All Build Files
         uses: actions/upload-artifact@v4
         with:
           name: aerolink-${{ matrix.target }}
-          path: build/aerolink.bin
+          path: |
+            build/aerolink.bin
+            build/bootloader/bootloader.bin
+            build/partition_table/partition-table.bin
+            build/ota_data_initial.bin
 
   release:
     needs: build
@@ -42,14 +46,26 @@ jobs:
           pattern: aerolink-*
         continue-on-error: true
 
-      - name: Organize Firmware Files
+      - name: Create Flash Packages
         run: |
           mkdir -p release
           for dir in firmware/aerolink-*; do
             [ -d "$dir" ] || continue
             target=$(basename "$dir" | sed 's/aerolink-//')
+
+            # Copy individual firmware file
             [ -f "$dir/aerolink.bin" ] && cp "$dir/aerolink.bin" "release/aerolink-${target}.bin"
+
+            # Create complete flash zip for this target
+            mkdir -p "zip/${target}"
+            [ -f "$dir/bootloader.bin" ] && cp "$dir/bootloader.bin" "zip/${target}/"
+            [ -f "$dir/partition-table.bin" ] && cp "$dir/partition-table.bin" "zip/${target}/"
+            [ -f "$dir/ota_data_initial.bin" ] && cp "$dir/ota_data_initial.bin" "zip/${target}/"
+            [ -f "$dir/aerolink.bin" ] && cp "$dir/aerolink.bin" "zip/${target}/"
+            cd zip && zip -r "../release/aerolink-${target}-flash.zip" "${target}/" && cd ..
+            rm -rf "zip/${target}"
           done
+          echo "=== Release files ==="
           ls -la release/
 
       - name: Create GitHub Release
@@ -60,17 +76,28 @@ jobs:
           body: |
             ## AeroLink Firmware
 
-            Flash address: `0x20000`
+            ### Quick Flash (complete package)
+            Download the **`aerolink-<board>-flash.zip`** for your board. It contains everything:
+            - `bootloader.bin` → flash at `0x0`
+            - `partition-table.bin` → flash at `0x8000`
+            - `ota_data_initial.bin` → flash at `0xe000`
+            - `aerolink.bin` → flash at `0x20000`
 
-            Available firmware files for each target.
-            See attached `.bin` files for your board.
+            ### OTA Update (firmware only)
+            Download **`aerolink-<board>.bin`** and flash via the web dashboard at `http://192.168.4.1`
 
-            ### Flash Instructions
-            1. Download the `.bin` for your board
-            2. Connect ESP32 via USB
-            3. Flash to address `0x20000`
-            4. Open serial monitor at 115200 baud
-            5. Connect to `AeroLink` WiFi network
-            6. Open `http://192.168.4.1` in browser
+            ### Flash Instructions (USB)
+            1. Download the `-flash.zip` for your board
+            2. Extract all 4 `.bin` files
+            3. Connect ESP32 via USB
+            4. Flash each file to its address:
+               | File | Address |
+               |------|---------|
+               | `bootloader.bin` | `0x0` |
+               | `partition-table.bin` | `0x8000` |
+               | `ota_data_initial.bin` | `0xe000` |
+               | `aerolink.bin` | `0x20000` |
+            5. Open serial monitor at 115200 baud
+            6. Connect to `AeroLink` WiFi → open `http://192.168.4.1`
           files: release/*
           make_latest: true

@@ -69,8 +69,6 @@ Go to [**Releases**](https://github.com/agra-aarav15/Aerolink/releases/latest) �
 ### Step 2: Extract the Zip
 Unzip to get 4 files:
 ```
-git clone https://github.com/agra-aarav15/AeroLink.git
-cd AeroLink
 bootloader.bin          → flash at 0x0
 partition-table.bin     → flash at 0x8000
 ota_data_initial.bin    → flash at 0xe000
@@ -87,6 +85,8 @@ aerolink.bin            → flash at 0x20000
 
 **💻 On Laptop:**
 ```bash
+git clone https://github.com/agra-aarav15/AeroLink.git
+cd AeroLink
 pip install esptool
 esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash \
   0x0 bootloader.bin \

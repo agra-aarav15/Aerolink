@@ -29,6 +29,8 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 
 **Best Wi-Fi extender per dollar on the planet.** Built for everyone.
 
+> **📦 [Download Latest Firmware](https://github.com/agra-aarav15/Aerolink/releases/latest)** — Complete flash packages for all boards
+
 ---
 
 ## ✨ Features
@@ -59,12 +61,31 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 
 ## 🚀 Quick Start
 
-### Method 1: USB Flash (Direct)
-```bash
-# Install esptool
-pip install esptool
+> **📱 Works on both phone and laptop — no PC required!**
 
-# Flash AeroLink at 0x20000 (works best)
+### Step 1: Download Firmware
+Go to [**Releases**](https://github.com/agra-aarav15/Aerolink/releases/latest) → download the **`aerolink-<your-board>-flash.zip`** for your ESP32 board.
+
+### Step 2: Extract the Zip
+Unzip to get 4 files:
+```
+bootloader.bin          → flash at 0x0
+partition-table.bin     → flash at 0x8000
+ota_data_initial.bin    → flash at 0xe000
+aerolink.bin            → flash at 0x20000
+```
+
+### Step 3: Flash from Phone or Laptop
+
+**📱 On Phone:**
+1. Install **ESP Flash Tool** from Play Store / App Store
+2. Connect ESP32 via USB (use OTG adapter for Android)
+3. Select all 4 files and set their addresses as shown above
+4. Tap **Flash** → wait for completion
+
+**💻 On Laptop:**
+```bash
+pip install esptool
 esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash \
   0x0 bootloader.bin \
   0x8000 partition-table.bin \
@@ -72,13 +93,12 @@ esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash \
   0x20000 aerolink.bin
 ```
 
-### Future Updates (Phone Friendly — No PC needed!)
-1. Fork this repo → **Actions** → **Build AeroLink Firmware** → **Run workflow**
-2. Wait ~3 min → Click build → Download **aerolink-firmware** zip
-3. Extract `aerolink.bin` → Flash via ESP Flash Tool app on phone at **0x20000**
-4. Done! Connect to "AeroLink" WiFi → open `192.168.4.1`
+### Step 4: Connect
+1. Connect to **`AeroLink`** WiFi network
+2. Open **`http://192.168.4.1`** in browser
+3. Done! 🎉
 
-> **Note:** After first flash, you can do future updates via **⚙️ Config → OTA Update** in the web dashboard.
+> **Future Updates:** After first flash, update wirelessly via **⚙️ Config → OTA Update** in the web dashboard. Just upload `aerolink.bin` only.
 
 ---
 

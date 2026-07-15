@@ -50,19 +50,25 @@ jobs:
       - name: Create Flash Packages
         run: |
           mkdir -p release
+          echo "=== Downloaded artifacts ==="
+          find firmware/ -type f 2>/dev/null
           for dir in firmware/aerolink-*; do
             [ -d "$dir" ] || continue
             target=$(basename "$dir" | sed 's/aerolink-//')
 
+            # Debug: show what files are in this artifact
+            echo "=== Files in $dir ==="
+            find "$dir" -type f
+
             # Copy individual firmware file
-            [ -f "$dir/aerolink.bin" ] && cp "$dir/aerolink.bin" "release/aerolink-${target}.bin"
+            find "$dir" -name "aerolink.bin" -exec cp {} "release/aerolink-${target}.bin" \;
 
             # Create complete flash zip for this target
             mkdir -p "zip/${target}"
-            [ -f "$dir/bootloader.bin" ] && cp "$dir/bootloader.bin" "zip/${target}/"
-            [ -f "$dir/partition-table.bin" ] && cp "$dir/partition-table.bin" "zip/${target}/"
-            [ -f "$dir/ota_data_initial.bin" ] && cp "$dir/ota_data_initial.bin" "zip/${target}/"
-            [ -f "$dir/aerolink.bin" ] && cp "$dir/aerolink.bin" "zip/${target}/"
+            find "$dir" -name "bootloader.bin" -exec cp {} "zip/${target}/" \;
+            find "$dir" -name "partition-table.bin" -exec cp {} "zip/${target}/" \;
+            find "$dir" -name "ota_data_initial.bin" -exec cp {} "zip/${target}/" \;
+            find "$dir" -name "aerolink.bin" -exec cp {} "zip/${target}/" \;
             cd zip && zip -r "../release/aerolink-${target}-flash.zip" "${target}/" && cd ..
             rm -rf "zip/${target}"
           done

@@ -38,7 +38,7 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 | Feature | Description |
 |---------|-------------|
 | 🌐 **Wi-Fi Extension** | Extend your existing Wi-Fi network seamlessly |
-| 🎨 **Glassmorphism UI** | Pure black + frosted glass dashboard with smooth animations |
+| 🎨 **Glassmorphism UI** | Pure-black canvas, blue accents, frosted-glass cards |
 | 📡 **Network Scanner** | Scan and connect to available networks |
 | 🛡️ **Firewall (ACL)** | Fine-grained access control rules |
 | 🔀 **Port Forwarding** | Map external ports to internal devices |
@@ -47,6 +47,22 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 | 📱 **Mobile-First** | Beautiful on phones, tablets, and desktops |
 | 🏠 **Home Assistant** | MQTT integration with HA auto-discovery |
 | 🔌 **Ethernet Uplink** | WT32-ETH01 support for wired uplinks |
+
+## 🎨 Dashboard UI (redesigned)
+
+Every page was rebuilt on one design system — same nav, same spacing, same components:
+
+| | |
+|---|---|
+| **Design** | Pure-black canvas with a soft blue radial glow, frosted-glass cards (`backdrop-filter` blur + saturate), hairline borders with an inset top highlight, Inter type, blue focus-visible rings |
+| **Navigation** | Pill nav on every page with a clear active state — no dead links, no white screens |
+| **Dashboard** | Hero brand mark, live status card, tile menu (Setup · Scan · Config · Mappings · Firewall) |
+| **Setup / Scan** | Guided forms; scan keeps its scroll position while refreshing every 5 s |
+| **Config · Mappings · Firewall** | Styled switches, selects and danger buttons; delete/clear actions ask for confirmation |
+| **Feedback** | Save → success overlay with a reconnect countdown that polls the device; reboot screen waits for the device to come back |
+| **Responsive** | Mobile-first breakpoints, safe-area padding, `prefers-reduced-motion` respected |
+
+UI lives in [`components/http_server/pages/`](components/http_server/pages) — templates only, the back end is untouched.
 
 ## 📱 Supported Hardware
 
@@ -65,6 +81,8 @@ AeroLink transforms your ESP32 into a powerful wireless range extender with a **
 
 ### Step 1: Download Firmware
 Go to [**Releases**](https://github.com/agra-aarav15/Aerolink/releases/latest) → download the **`aerolink-<your-board>-flash.zip`** for your ESP32 board.
+
+> Every release is built automatically by CI on each push to `master` and contains flash packages for **ESP32, ESP32-S2, ESP32-S3, ESP32-C5 and ESP32-C6** (`aerolink-<board>-flash.zip` + single-file `aerolink-<board>.bin` for OTA).
 
 ### Step 2: Extract the Zip
 Unzip to get 4 files:

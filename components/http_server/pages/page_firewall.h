@@ -1,13 +1,8 @@
 /* Firewall page templates */
 /* Firewall Page - Chunked for streaming */
-#if CONFIG_ETH_UPLINK
-#define FW_NAV_LINKS ""
-#else
-#define FW_NAV_LINKS "<a href='/setup' class='nav-link'>🚀 Setup</a><a href='/scan' class='nav-link'>📡 Scan</a>"
-#endif
 #define FIREWALL_CHUNK_HEAD "<html>\
 <head>\
-<meta name='viewport' content='width=device-width, initial-scale=1'>\
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'>\
 <meta charset='UTF-8'>\
 <title>AeroLink — Firewall</title>\
 <link rel='icon' href='favicon.png'>\
@@ -23,10 +18,6 @@ h3{font-size:0.7rem;font-weight:600;color:#666;margin:0.6rem 0 0.3rem;}\
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:1rem;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.2rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
-.navrow{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.8rem 0 1.3rem;}\
-.nav-link{padding:0.4rem 0.8rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.75rem;transition:all 0.3s;}\
-.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
-.nav-link.on{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.16);}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .glass:nth-child(2){animation-delay:0.08s;}\
@@ -49,6 +40,7 @@ input:focus,select:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 .stats{font-size:0.65rem;color:#444;margin-bottom:0.3rem;}\
 .stats .ok{color:#4caf50;}\
 .stats .no{color:#f44336;}\
+.stats::after{content:'';display:block;clear:both;}\
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;backdrop-filter:blur(5px);}\
 .modal.show{display:flex;}\
 .mbox{background:#111;border:1px solid rgba(244,67,54,0.3);border-radius:12px;padding:1.5rem;max-width:350px;text-align:center;}\
@@ -72,14 +64,13 @@ input:focus,select:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 .modal-box h3{color:#f44336;margin-bottom:0.8rem;}\
 .modal-box p{color:#888;margin-bottom:1rem;font-size:0.85rem;}\
 .modal-box button{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.5rem 1.5rem;cursor:pointer;}\
-@media(max-width:768px){body{padding:1rem;}.tbl{display:block;overflow-x:auto;}.tbl th,.tbl td{padding:0.3rem 0.2rem;font-size:0.6rem;}}\
+@media(max-width:768px){body{padding:1rem;}.tbl,.data-table{display:block;overflow-x:auto;}.tbl th,.tbl td,.data-table th,.data-table td{padding:0.3rem 0.2rem;font-size:0.6rem;}}\
 </style>\
-<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/[?&](del_|clear_)/.test(a.getAttribute('href')||'')&&!confirm('Delete this item?'))e.preventDefault();});</script>\
 <body>"
 #define FIREWALL_CHUNK_MID1 "\
 <div id='wrap'>\
-<h1>AeroLink — Firewall</h1>\
-<div class='navrow'><a href='/' class='nav-link'>🏠 Home</a>" FW_NAV_LINKS "<a href='/config' class='nav-link'>⚙️ Config</a><a href='/mappings' class='nav-link'>🔀 Mappings</a><a href='/firewall' class='nav-link on'>🛡️ Firewall</a></div>"
+<a href='/' class='home'>← Home</a>\
+<h1>AeroLink — Firewall</h1>"
 #define FIREWALL_CHUNK_MID2 "\
 <p style='color:#333;font-size:0.7rem;margin-bottom:0.6rem;'>Rules top-down. First match wins.</p>"
 #define FIREWALL_CHUNK_TAIL "\

@@ -2,17 +2,11 @@
 #include "router_config.h"
 #include "wifi_config.h"
 
-#if CONFIG_ETH_UPLINK
-#define CONFIG_NAV_LINKS ""
-#else
-#define CONFIG_NAV_LINKS "<a href='/setup' class='nav-link'>🚀 Setup</a><a href='/scan' class='nav-link'>📡 Scan</a>"
-#endif
-
 /* Configuration Page - WiFi settings and MAC addresses */
 /* Config Page - Chunked for streaming */
 #define CONFIG_CHUNK_HEAD "<html>\
 <head>\
-<meta name='viewport' content='width=device-width, initial-scale=1'>\
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'>\
 <meta charset='UTF-8'>\
 <title>AeroLink — Config</title>\
 <link rel='icon' href='favicon.png'>\
@@ -27,10 +21,6 @@ h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-s
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:0.8rem;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
-.navrow{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.8rem 0 1.3rem;}\
-.nav-link{padding:0.4rem 0.8rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.75rem;transition:all 0.3s;}\
-.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
-.nav-link.on{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.16);}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .glass:nth-child(2){animation-delay:0.08s;}\
@@ -61,8 +51,8 @@ small{display:block;color:#333;font-size:0.7rem;margin-top:0.3rem;line-height:1.
 </style>\
 <body>\
 <div id='wrap'>\
-<h1>AeroLink — Config</h1>\
-<div class='navrow'><a href='/' class='nav-link'>🏠 Home</a>" CONFIG_NAV_LINKS "<a href='/config' class='nav-link on'>⚙️ Config</a><a href='/mappings' class='nav-link'>🔀 Mappings</a><a href='/firewall' class='nav-link'>🛡️ Firewall</a></div>"
+<a href='/' class='home'>← Home</a>\
+<h1>AeroLink — Config</h1>"
 /* After logout section */
 #define CONFIG_CHUNK_SCRIPT "\
 <script>\
@@ -213,6 +203,7 @@ document.getElementById('cfgFile').addEventListener('change',function(){document
 function downloadConfig(){var pass=document.getElementById('expPass').value;document.getElementById('exportStatus').textContent='Downloading...';fetch('/api/config-export',{method:'POST',body:JSON.stringify({pass:pass}),headers:{'Content-Type':'application/json'}}).then(function(r){if(!r.ok)throw new Error();var cd=r.headers.get('Content-Disposition')||'';var fn='config.json';var m=cd.match(/filename=\"([^\"]+)\"/);if(m)fn=m[1];return r.blob().then(function(b){return{b:b,fn:fn};});}).then(function(o){var url=URL.createObjectURL(o.b);var a=document.createElement('a');a.href=url;a.download=o.fn;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(url);a.remove();},100);document.getElementById('exportStatus').textContent='Done';}).catch(function(){document.getElementById('exportStatus').textContent='Failed';});}\
 function uploadConfig(){var f=document.getElementById('cfgFile').files[0];var pass=document.getElementById('impPass').value;if(!f){document.getElementById('importStatus').textContent='Select a file';return;}var r=new FileReader();r.onload=function(){document.getElementById('importStatus').textContent='Uploading...';var h={'Content-Type':'application/json'};if(pass)h['X-Config-Pass']=pass;fetch('/api/config-import',{method:'POST',body:r.result,headers:h}).then(function(r){return r.json();}).then(function(d){if(d.ok){document.getElementById('wrap').style.display='none';document.getElementById('rebootScreen').style.display='block';var c=5;var el=document.getElementById('countdown');var t=setInterval(function(){c--;el.textContent=c;if(c<=0){clearInterval(t);window.location.href='/';}},1000);}else{document.getElementById('importStatus').textContent=d.msg||'Failed';}});};r.readAsText(f);}\
 </script>\
+<div style='text-align:center;margin-top:1.5rem;'><a href='/' style='color:#555;text-decoration:none;font-size:0.8rem;'>← Home</a></div>\
 </div></body></html>"
 
 /* Danger Zone removed — VPN and web bind restrictions no longer shown */

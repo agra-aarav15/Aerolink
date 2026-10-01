@@ -13,6 +13,26 @@ like /setup cannot be fetched over HTTP. This script therefore:
 import glob
 import json
 import os
+import re
+
+
+def extract_favicon():
+    """Write the firmware's embedded favicon next to the rendered pages.
+
+    The device serves /favicon.png from favicon_png.h; the preview folder
+    has no such route, so the index logo renders as a broken image. Decode
+    the same byte array the firmware ships and drop it in .uitest/out/.
+    """
+    src = open("components/http_server/favicon_png.h", encoding="utf-8").read()
+    data = bytes(int(b, 16) for b in re.findall(r"0x([0-9a-fA-F]{2})", src))
+    if data[:8] != b"\x89PNG\r\n\x1a\n":
+        print("favicon: not a PNG, skipped")
+        return 0
+    open(".uitest/out/favicon.png", "wb").write(data)
+    return len(data)
+
+
+extract_favicon()
 
 NAV = (
     "<script>(function(){"

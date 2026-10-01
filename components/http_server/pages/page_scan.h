@@ -5,7 +5,7 @@
 /* WiFi Scan Page */
 #define SCAN_PAGE "<html>\
 <head>\
-<meta name='viewport' content='width=device-width, initial-scale=1'>\
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'>\
 <meta charset='UTF-8'>\
 <meta http-equiv='refresh' content='%d'>\
 <title>AeroLink — Scan</title>\
@@ -21,10 +21,6 @@ h1{font-size:1.1rem;font-weight:300;color:#fff;letter-spacing:3px;text-transform
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;margin-bottom:1rem;overflow-x:auto;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.5rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
-.navrow{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.8rem 0 1.3rem;}\
-.nav-link{padding:0.4rem 0.8rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.75rem;transition:all 0.3s;}\
-.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
-.nav-link.on{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.16);}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 @keyframes pulse{0%%,100%%{opacity:0.6;}50%%{opacity:1;}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
@@ -53,8 +49,8 @@ a.home:hover{color:#aaa;}\
 </style>\
 <body>\
 <div id='wrap'>\
+<a href='/' class='home'>← Home</a>\
 <h1>AeroLink — Scan</h1>\
-<div class='navrow'><a href='/' class='nav-link'>🏠 Home</a><a href='/setup' class='nav-link'>🚀 Setup</a><a href='/scan' class='nav-link on'>📡 Scan</a><a href='/config' class='nav-link'>⚙️ Config</a><a href='/mappings' class='nav-link'>🔀 Mappings</a><a href='/firewall' class='nav-link'>🛡️ Firewall</a></div>\
 <div class='sub'>Auto-refresh %d networks</div>\
 <div class='glass'>\
 <table class='tbl'>\
@@ -62,6 +58,5 @@ a.home:hover{color:#aaa;}\
 <tbody>%s</tbody>\
 </table>\
 </div>\
-<script>history.scrollRestoration='manual';try{var y=sessionStorage.getItem('scanY');if(y)window.scrollTo(0,+y);}catch(e){}window.addEventListener('beforeunload',function(){try{sessionStorage.setItem('scanY',String(window.scrollY));}catch(e){}});</script>\
 </div></body></html>"
 #endif /* !CONFIG_ETH_UPLINK */

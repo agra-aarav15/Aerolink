@@ -5,7 +5,7 @@
 /* Getting Started Page */
 #define SETUP_CHUNK_HEAD "<html>\
 <head>\
-<meta name='viewport' content='width=device-width, initial-scale=1'>\
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'>\
 <meta charset='UTF-8'>\
 <title>AeroLink — Setup</title>\
 <link rel='icon' href='favicon.png'>\
@@ -35,16 +35,14 @@ input:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 input::placeholder{color:#333;}\
 .ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.6rem;font-size:0.85rem;cursor:pointer;width:100%;margin-top:0.3rem;transition:all 0.3s;}\
 .ok-btn:hover{background:rgba(255,255,255,0.14);}\
-.navrow{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.8rem 0 1.3rem;}\
-.nav-link{padding:0.4rem 0.8rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.75rem;transition:all 0.3s;}\
-.nav-link.on{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.16);}\
+.nav-link{display:inline-block;padding:0.5rem 1rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.8rem;margin:0.3rem;transition:all 0.3s;}\
 .nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
 @media(max-width:600px){body{padding:1rem;}td:first-child{font-size:0.7rem;width:40%;}}\
 </style>\
 <body>\
 <div id='wrap'>\
+<a href='/' class='home'>← Home</a>\
 <h1>AeroLink — Setup</h1>\
-<div class='navrow'><a href='/' class='nav-link'>🏠 Home</a><a href='/setup' class='nav-link on'>🚀 Setup</a><a href='/scan' class='nav-link'>📡 Scan</a><a href='/config' class='nav-link'>⚙️ Config</a><a href='/mappings' class='nav-link'>🔀 Mappings</a><a href='/firewall' class='nav-link'>🛡️ Firewall</a></div>\
 <script>\
 var qs=window.location.search.substr(1);\
 if(qs.indexOf('ap_ssid=')!==-1||(qs.indexOf('ssid=')!==-1&&qs.indexOf('password=')!==-1)){\
@@ -67,5 +65,8 @@ setTimeout(\"location.href='/'\",8000);}\
 <tr><td>Password</td><td><input type='password' name='password'/></td></tr>\
 <tr><td></td><td><input type='submit' value='Save & Reboot' class='ok-btn'/></td></tr>\
 </table></form></div>\
-</div></body></html>"
+<div style='text-align:center;margin-top:1rem;'>\
+<a href='/scan' class='nav-link'>📡 Scan</a>\
+<a href='/' class='nav-link'>← Home</a>\
+</div></div></body></html>"
 #endif /* !CONFIG_ETH_UPLINK */

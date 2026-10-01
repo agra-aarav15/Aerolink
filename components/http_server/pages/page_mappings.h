@@ -1,16 +1,10 @@
 /* Mappings page templates */
 #include "router_config.h"
 
-#if CONFIG_ETH_UPLINK
-#define MAPPINGS_NAV_LINKS ""
-#else
-#define MAPPINGS_NAV_LINKS "<a href='/setup' class='nav-link'>🚀 Setup</a><a href='/scan' class='nav-link'>📡 Scan</a>"
-#endif
-
 /* Mappings Page - Chunked for streaming */
 #define MAPPINGS_CHUNK_HEAD "<html>\
 <head>\
-<meta name='viewport' content='width=device-width, initial-scale=1'>\
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'>\
 <meta charset='UTF-8'>\
 <title>AeroLink — Mappings</title>\
 <link rel='icon' href='favicon.png'>\
@@ -25,10 +19,6 @@ h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-s
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:1rem;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.2rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
-.navrow{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.8rem 0 1.3rem;}\
-.nav-link{padding:0.4rem 0.8rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.75rem;transition:all 0.3s;}\
-.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
-.nav-link.on{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.16);}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .glass:nth-child(2){animation-delay:0.08s;}\
@@ -77,13 +67,12 @@ select option{background:#111;color:#fff;}\
 <script>\
 function fillDhcpForm(mac,ip,name){document.getElementById('dhcp_mac').value=mac;document.getElementById('dhcp_ip').value=ip;document.getElementById('dhcp_name').value=name;document.getElementById('dhcp_mac').scrollIntoView({behavior:'smooth',block:'center'});}\
 </script>\
-<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/[?&](del_|clear_)/.test(a.getAttribute('href')||'')&&!confirm('Delete this item?'))e.preventDefault();});</script>\
 <body>"
 
 #define MAPPINGS_CHUNK_MID1 "\
 <div id='wrap'>\
-<h1>AeroLink — Mappings</h1>\
-<div class='navrow'><a href='/' class='nav-link'>🏠 Home</a>" MAPPINGS_NAV_LINKS "<a href='/config' class='nav-link'>⚙️ Config</a><a href='/mappings' class='nav-link on'>🔀 Mappings</a><a href='/firewall' class='nav-link'>🛡️ Firewall</a></div>"
+<a href='/' class='home'>← Home</a>\
+<h1>AeroLink — Mappings</h1>"
 
 #define MAPPINGS_CHUNK_MID2 "\
 <div class='glass'>\
@@ -148,4 +137,5 @@ function fillDhcpForm(mac,ip,name){document.getElementById('dhcp_mac').value=mac
 </table></form></div>"
 
 #define MAPPINGS_CHUNK_PAGE_FOOTER "\
+<div style='text-align:center;margin-top:1.5rem;'><a href='/' style='color:#555;text-decoration:none;font-size:0.8rem;'>← Home</a></div>\
 </div></body></html>"

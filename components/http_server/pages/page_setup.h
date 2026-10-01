@@ -27,17 +27,17 @@ a.home:hover{color:#aaa;}\
 .ok-btn:hover{box-shadow:0 0 12px rgba(100,149,237,0.25);}\
 .nav-link{transition:all 0.3s ease;}\
 .nav-link:hover{box-shadow:0 0 10px rgba(100,149,237,0.2);}\
-table{width:100%%;border-collapse:collapse;}\
+table{width:100%;border-collapse:collapse;}\
 td{padding:0.4rem 0;vertical-align:top;}\
-td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:35%%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
-input[type='text'],input[type='password']{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;box-sizing:border-box;overflow:hidden;}\
+td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:35%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
+input[type='text'],input[type='password']{width:100%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;box-sizing:border-box;overflow:hidden;}\
 input:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 input::placeholder{color:#333;}\
-.ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.6rem;font-size:0.85rem;cursor:pointer;width:100%%;margin-top:0.3rem;transition:all 0.3s;}\
+.ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.6rem;font-size:0.85rem;cursor:pointer;width:100%;margin-top:0.3rem;transition:all 0.3s;}\
 .ok-btn:hover{background:rgba(255,255,255,0.14);}\
 .nav-link{display:inline-block;padding:0.5rem 1rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.8rem;margin:0.3rem;transition:all 0.3s;}\
 .nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
-@media(max-width:600px){body{padding:1rem;}td:first-child{font-size:0.7rem;width:40%%;}}\
+@media(max-width:600px){body{padding:1rem;}td:first-child{font-size:0.7rem;width:40%;}}\
 </style>\
 <body>\
 <div id='wrap'>\

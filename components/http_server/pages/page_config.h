@@ -21,6 +21,7 @@ h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-s
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:0.8rem;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
+#wrap > a[href='/?logout=1']{display:inline-block;margin-bottom:0.4rem;}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .glass:nth-child(2){animation-delay:0.08s;}\
@@ -32,22 +33,23 @@ form{margin-bottom:0.5rem;}\
 table{width:100%;border-collapse:collapse;}\
 td{padding:0.4rem 0;vertical-align:top;}\
 td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:35%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
-input[type='text'],input[type='password'],input[type='number']{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;box-sizing:border-box;overflow:hidden;}\
+input[type='text'],input[type='password'],input[type='number']{width:100%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;transition:all 0.3s;box-sizing:border-box;overflow:hidden;}\
 input:focus{outline:none;border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);}\
 input::placeholder{color:#333;}\
-select{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;cursor:pointer;-webkit-appearance:none;box-sizing:border-box;overflow:hidden;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.6rem center;padding-right:1.5rem;}\
+select{width:100%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.6rem;font-size:0.85rem;cursor:pointer;-webkit-appearance:none;box-sizing:border-box;overflow:hidden;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.6rem center;padding-right:1.5rem;}\
 select option{background:#111;color:#fff;}\
 input[type='checkbox'],input[type='radio']{-webkit-appearance:none;appearance:none;width:16px;height:16px;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.04);cursor:pointer;vertical-align:middle;position:relative;}\
-input[type='radio']{border-radius:50%%;}\
+input[type='radio']{border-radius:50%;}\
 input:checked{background:#fff;border-color:#fff;}\
 input[type='checkbox']:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:8px;border:solid #000;border-width:0 2px 2px 0;transform:rotate(45deg);}\
-input[type='radio']:checked::after{content:'';position:absolute;left:4px;top:4px;width:6px;height:6px;border-radius:50%%;background:#000;}\
-.ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.6rem;font-size:0.85rem;font-weight:500;cursor:pointer;width:100%%;margin-top:0.3rem;transition:all 0.3s;}\
+input[type='radio']:checked::after{content:'';position:absolute;left:4px;top:4px;width:6px;height:6px;border-radius:50%;background:#000;}\
+.ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.6rem;font-size:0.85rem;font-weight:500;cursor:pointer;width:100%;margin-top:0.3rem;transition:all 0.3s;}\
 .ok-btn:hover{background:rgba(255,255,255,0.14);}\
-.red-btn{background:rgba(244,67,54,0.15);color:#f44336;border:1px solid rgba(244,67,54,0.2);border-radius:8px;padding:0.6rem;font-size:0.85rem;font-weight:500;cursor:pointer;width:100%%;margin-top:0.3rem;transition:all 0.3s;}\
+.red-btn{background:rgba(244,67,54,0.15);color:#f44336;border:1px solid rgba(244,67,54,0.2);border-radius:8px;padding:0.6rem;font-size:0.85rem;font-weight:500;cursor:pointer;width:100%;margin-top:0.3rem;transition:all 0.3s;}\
 .red-btn:hover{background:rgba(244,67,54,0.25);}\
 small{display:block;color:#333;font-size:0.7rem;margin-top:0.3rem;line-height:1.3;}\
-@media(max-width:600px){body{padding:1rem;}td:first-child{font-size:0.7rem;width:40%%;}}\
+td small{display:inline;margin:0 0 0 0.35rem;vertical-align:middle;}\
+@media(max-width:600px){body{padding:1rem;}td:first-child{font-size:0.7rem;width:40%;}}\
 </style>\
 <body>\
 <div id='wrap'>\
@@ -159,9 +161,9 @@ setTimeout(\"location.href='/'\",8000);}\
 /* Footer with OTA */
 #define CONFIG_CHUNK_TAIL "\
 <div class='glass'>\
-<h2>Device</h2>\
-<h3 style='font-size:0.75rem;color:#555;margin:0.5rem 0;'>OTA Update</h3>"
+<h2>Device</h2>"
 #define CONFIG_CHUNK_TAIL2 "\
+<h3 style='font-size:0.75rem;color:#555;margin:0.5rem 0;'>OTA Update</h3>\
 <table>\
 <tr><td>Upload</td><td>\
 <label style='display:inline-block;padding:0.5rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#888;font-size:0.8rem;cursor:pointer;'>\
@@ -169,14 +171,14 @@ setTimeout(\"location.href='/'\",8000);}\
 <span id='otaFileName'>Choose .bin</span></label><br/>\
 <button type='button' onclick='uploadOTA()' class='ok-btn'>Upload</button>\
 <div id='otaBar' style='display:none;height:4px;background:rgba(255,255,255,0.05);border-radius:2px;margin-top:0.5rem;overflow:hidden;'>\
-<div id='otaBarFill' style='height:100%%;width:0;background:#fff;transition:width 0.3s;'></div></div>\
+<div id='otaBarFill' style='height:100%;width:0;background:#fff;transition:width 0.3s;'></div></div>\
 <div id='otaStatus' style='margin-top:0.3rem;font-size:0.8rem;color:#888;'></div></td></tr></table>\
 <h3 style='font-size:0.75rem;color:#555;margin:1rem 0 0.5rem;'>Backup</h3>\
 <table>\
-<tr><td>Export</td><td><input type='password' id='expPass' placeholder='Passphrase' style='width:100%%;margin-bottom:0.3rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;'/><br/>\
+<tr><td>Export</td><td><input type='password' id='expPass' placeholder='Passphrase' style='width:100%;margin-bottom:0.3rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;'/><br/>\
 <button type='button' onclick='downloadConfig()' class='ok-btn'>Download</button>\
 <div id='exportStatus' style='margin-top:0.3rem;font-size:0.8rem;color:#888;'></div></td></tr>\
-<tr><td>Import</td><td><input type='password' id='impPass' placeholder='Passphrase' style='width:100%%;margin-bottom:0.3rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;'/><br/>\
+<tr><td>Import</td><td><input type='password' id='impPass' placeholder='Passphrase' style='width:100%;margin-bottom:0.3rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;'/><br/>\
 <label style='display:inline-block;padding:0.5rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#888;font-size:0.8rem;cursor:pointer;'>\
 <input type='file' id='cfgFile' accept='.json' style='display:none;'/>\
 <span id='cfgFileName'>Choose file</span></label><br/>\
@@ -196,7 +198,7 @@ var f=document.getElementById('otaFile').files[0];\
 if(!f){document.getElementById('otaStatus').textContent='Select a file';return;}\
 document.getElementById('otaStatus').textContent='Uploading...';document.getElementById('otaBar').style.display='block';\
 var xhr=new XMLHttpRequest();xhr.open('POST','/api/ota-upload',true);\
-xhr.upload.onprogress=function(e){if(e.lengthComputable){var p=Math.round(e.loaded/e.total*100);document.getElementById('otaBarFill').style.width=p+'%%';document.getElementById('otaStatus').textContent='Uploading '+p+'%%';}};\
+xhr.upload.onprogress=function(e){if(e.lengthComputable){var p=Math.round(e.loaded/e.total*100);document.getElementById('otaBarFill').style.width=p+'%';document.getElementById('otaStatus').textContent='Uploading '+p+'%';}};\
 xhr.onload=function(){try{var d=JSON.parse(xhr.responseText);if(d.ok){document.getElementById('wrap').style.display='none';document.getElementById('rebootScreen').style.display='block';var c=10;var el=document.getElementById('countdown');var t=setInterval(function(){c--;el.textContent=c;if(c<=0){clearInterval(t);window.location.href='/';}},1000);}else{document.getElementById('otaBarFill').style.width='0';document.getElementById('otaBar').style.display='none';document.getElementById('otaStatus').textContent=d.msg||'Failed';}}catch(e){document.getElementById('otaStatus').textContent='Error';}};\
 xhr.onerror=function(){document.getElementById('otaStatus').textContent='Connection error';};xhr.send(f);}\
 document.getElementById('cfgFile').addEventListener('change',function(){document.getElementById('cfgFileName').textContent=this.files[0]?this.files[0].name:'Choose file';});\

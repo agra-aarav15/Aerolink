@@ -2,101 +2,66 @@
 #include "router_config.h"
 
 #if !CONFIG_ETH_UPLINK
-/* WiFi Scan Page.
- * IMPORTANT: SCAN_PAGE is passed straight to snprintf() as the format string
- * (refresh seconds, network count, action column, result rows), so every
- * literal percent sign in this template MUST be written as %%. */
-#define SCAN_PAGE "<!doctype html>\
-<html lang='en'>\
+/* WiFi Scan Page */
+#define SCAN_PAGE "<html>\
 <head>\
-<meta charset='utf-8'>\
-<meta name='viewport' content='width=device-width,initial-scale=1'>\
-<meta name='color-scheme' content='dark'>\
-<meta name='theme-color' content='#000000'>\
+<meta name='viewport' content='width=device-width, initial-scale=1'>\
+<meta charset='UTF-8'>\
 <meta http-equiv='refresh' content='%d'>\
-<title>AeroLink - Scan</title>\
-<link rel='icon' href='/favicon.png'>\
-<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap' rel='stylesheet'>\
-<style>\
-*{box-sizing:border-box;margin:0;padding:0}\
-html{-webkit-text-size-adjust:100%%}\
-body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#000;color:#eef1f6;color-scheme:dark;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:1.1rem 1rem calc(1.5rem + env(safe-area-inset-bottom))}\
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(700px 340px at 50%% -120px,rgba(79,140,255,.22),transparent 70%%),radial-gradient(520px 420px at 110%% 110%%,rgba(79,140,255,.07),transparent 70%%)}\
-#wrap{position:relative;z-index:1;width:100%%;max-width:660px;margin:auto}\
-a{color:#7fa9ff;text-decoration:none}\
-a:hover{color:#aecbff}\
-:focus-visible{outline:2px solid rgba(127,169,255,.8);outline-offset:2px}\
-::selection{background:rgba(79,140,255,.35)}\
-.topbar{display:flex;align-items:center;justify-content:space-between;min-height:32px;margin-bottom:.3rem}\
-.brand{display:inline-flex;align-items:center;gap:.55rem;color:#e7ecf5;font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase}\
-:root{--logo:url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='rgb(7,11,20)'/><path d='M18 47 32 17 46 47' fill='none' stroke='rgb(79,140,255)' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/><path d='M24.5 37.5h15' stroke='rgb(79,140,255)' stroke-width='6.5' stroke-linecap='round'/></svg>\")}\
-.brand .logo{display:inline-block;width:24px;height:24px;border-radius:7px;background:#070b14 var(--logo) center/62%% no-repeat;box-shadow:0 0 0 1px rgba(255,255,255,.14);overflow:hidden;flex:none}\
-.brand .logo img{display:block;width:100%%;height:100%%;object-fit:contain}\
-.brand:hover{color:#fff}\
-h1{font-size:1.3rem;font-weight:600;letter-spacing:-.01em;margin:.2rem 0 .1rem}\
-.nav{display:flex;flex-wrap:wrap;gap:.38rem;margin:.7rem 0 1rem}\
-.nav a{font-size:.7rem;font-weight:500;letter-spacing:.05em;color:#98a1ae;padding:.42rem .78rem;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);transition:color .18s,border-color .18s,background .18s}\
-.nav a:hover{color:#fff;border-color:rgba(127,169,255,.5);background:rgba(79,140,255,.14)}\
-.nav a.on{color:#dce9ff;border-color:rgba(79,140,255,.55);background:rgba(79,140,255,.17)}\
-.sub{color:#7b8391;font-size:.74rem;letter-spacing:.05em;margin:-.5rem 0 1.1rem}\
-.sub b{color:#c3cad5;font-weight:600}\
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}\
-@keyframes pulse{0%%,100%%{opacity:.5}50%%{opacity:1}}\
-.glass{background:linear-gradient(165deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:1.2rem;backdrop-filter:blur(18px) saturate(150%%);-webkit-backdrop-filter:blur(18px) saturate(150%%);box-shadow:0 12px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);margin-bottom:1rem;overflow-x:auto;animation:rise .5s cubic-bezier(.2,.7,.3,1) both}\
-.tbl{width:100%%;border-collapse:collapse}\
-.tbl th{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7b8391;text-align:left;padding:.6rem .55rem;border-bottom:1px solid rgba(255,255,255,.09);white-space:nowrap}\
-.tbl td{padding:.65rem .55rem;font-size:.82rem;color:#cfd5de;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:middle}\
-.tbl tbody tr:last-child td{border-bottom:none}\
-.tbl tbody tr:hover td{background:rgba(255,255,255,.03)}\
-.tbl td:first-child{color:#eef1f6;font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\
-.tbl td[colspan]{text-align:center!important;color:#7b8391!important}\
-.tbl td[colspan] span{color:#8ab4ff!important}\
-.signal-bars{display:inline-flex;align-items:flex-end;gap:2px;height:16px;vertical-align:middle;margin-right:.15rem}\
-.signal-bars .bar{width:3.5px;border-radius:2px;background:rgba(255,255,255,.1)}\
-.signal-bars .bar.active.signal-excellent{background:#a5c4ff}\
-.signal-bars .bar.active.signal-good{background:#7aa5ff}\
-.signal-bars .bar.active.signal-fair{background:#4f8cff}\
-.signal-bars .bar.active.signal-weak{background:#3563c4}\
-.signal-bars .bar.active.signal-poor{background:#6b7280}\
-.connect-button{display:inline-block;padding:.34rem .8rem;border-radius:8px;border:1px solid rgba(79,140,255,.55);background:linear-gradient(180deg,#4f8cff,#3b74de);color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.04em;transition:filter .15s,transform .1s}\
-.connect-button:hover{filter:brightness(1.1);color:#fff}\
-.connect-button:active{transform:translateY(1px)}\
-@media(max-width:640px){\
-body{padding:.9rem .75rem calc(1.2rem + env(safe-area-inset-bottom))}\
-.glass{padding:1rem .8rem;border-radius:16px}\
-h1{font-size:1.15rem}\
-.tbl{min-width:560px}\
-}\
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}\
-::-webkit-scrollbar{width:10px;height:10px}\
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px}\
-::-webkit-scrollbar-track{background:transparent}\
-</style>\
-<script>window.addEventListener('error',function(e){if(e.target&&e.target.tagName=='IMG'){e.target.style.display='none';}},true);</script>\
+<title>AeroLink — Scan</title>\
+<link rel='icon' href='favicon.png'>\
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap' rel='stylesheet'>\
 </head>\
+<style>\
+*{box-sizing:border-box;margin:0;padding:0;}\
+body{font-family:'Inter',sans-serif;background:#000;color:#fff;padding:1.5rem;min-height:100vh;display:flex;justify-content:center;}\
+#wrap{width:100%%;max-width:600px;}\
+h1{font-size:1.1rem;font-weight:300;color:#fff;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.3rem;}\
+.sub{color:#555;font-size:0.7rem;letter-spacing:1px;margin-bottom:1.5rem;}\
+.glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;margin-bottom:1rem;overflow-x:auto;}\
+a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.5rem;transition:color 0.3s;}\
+a.home:hover{color:#aaa;}\
+.navrow{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.8rem 0 1.3rem;}\
+.nav-link{padding:0.4rem 0.8rem;background:rgba(255,255,255,0.04);color:#888;border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-decoration:none;font-size:0.75rem;transition:all 0.3s;}\
+.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}\
+.nav-link.on{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.16);}\
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
+@keyframes pulse{0%%,100%%{opacity:0.6;}50%%{opacity:1;}}\
+.glass{animation:fadeIn 0.5s ease-out both;}\
+.tbl tbody tr{animation:fadeIn 0.3s ease-out both;}\
+.tbl tbody tr:nth-child(odd){animation-delay:0.05s;}\
+.tbl tbody tr:nth-child(even){animation-delay:0.1s;}\
+.sbar .b.on{animation:pulse 2s ease-in-out infinite;}\
+.cbtn{transition:all 0.3s ease,box-shadow 0.3s;}\
+.cbtn:hover{box-shadow:0 0 10px rgba(100,149,237,0.2);}\
+.connect-button{display:inline-block;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.7rem;font-weight:500;text-decoration:none;transition:all 0.3s;}\
+.connect-button:hover{background:rgba(255,255,255,0.12);}\
+.tbl{width:100%%;border-collapse:collapse;margin-top:0.5rem;}\
+.tbl th{font-size:0.65rem;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:0.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}\
+.tbl td{padding:0.5rem;font-size:0.8rem;color:#ccc;border-bottom:1px solid rgba(255,255,255,0.03);}\
+.tbl tbody tr:hover td{background:rgba(255,255,255,0.03);}\
+.sbar,.signal-bars{display:inline-flex;align-items:flex-end;gap:2px;height:16px;vertical-align:middle;}\
+.sbar .b,.signal-bars .bar{width:3px;border-radius:1px;background:rgba(255,255,255,0.1);}\
+.sbar .b.on.e,.signal-bars .bar.active.signal-excellent{background:#4caf50;}\
+.sbar .b.on.g,.signal-bars .bar.active.signal-good{background:#8bc34a;}\
+.sbar .b.on.f,.signal-bars .bar.active.signal-fair{background:#ffc107;}\
+.sbar .b.on.w,.signal-bars .bar.active.signal-weak{background:#ff9800;}\
+.sbar .b.on.p,.signal-bars .bar.active.signal-poor{background:#f44336;}\
+.cbtn{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.7rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all 0.3s;}\
+.cbtn:hover{background:rgba(255,255,255,0.12);}\
+@media(max-width:600px){body{padding:1rem;}.tbl th,.tbl td{padding:0.3rem;font-size:0.7rem;}}\
+</style>\
 <body>\
 <div id='wrap'>\
-<div class='topbar'><a class='brand' href='/'><span class='logo'><img src='/favicon.png' alt=''></span><span>AeroLink</span></a></div>\
-<h1>Wi-Fi Scan</h1>\
-<nav class='nav' aria-label='Sections'>\
-<a href='/'>Home</a>\
-<a href='/setup'>Setup</a>\
-<a href='/scan' class='on'>Scan</a>\
-<a href='/config'>Config</a>\
-<a href='/mappings'>Mappings</a>\
-<a href='/firewall'>Firewall</a>\
-</nav>\
-<div class='sub'><span id='rn'>Auto-refreshing</span> &middot; <b>%d networks found</b></div>\
+<h1>AeroLink — Scan</h1>\
+<div class='navrow'><a href='/' class='nav-link'>🏠 Home</a><a href='/setup' class='nav-link'>🚀 Setup</a><a href='/scan' class='nav-link on'>📡 Scan</a><a href='/config' class='nav-link'>⚙️ Config</a><a href='/mappings' class='nav-link'>🔀 Mappings</a><a href='/firewall' class='nav-link'>🛡️ Firewall</a></div>\
+<div class='sub'>Auto-refresh %d networks</div>\
 <div class='glass'>\
 <table class='tbl'>\
 <thead><tr><th>SSID</th><th>Signal</th><th>Ch</th><th>Security</th>%s</tr></thead>\
 <tbody>%s</tbody>\
 </table>\
 </div>\
-</div>\
-<script>\
-(function(){var m=document.querySelector('meta[http-equiv=refresh]');var n=document.getElementById('rn');if(m&&n&&m.content){n.textContent='Refreshing every '+m.content+' seconds';}})();\
-(function(){var y=0;try{y=sessionStorage.getItem('scanY')||0;}catch(e){}if(y>0){window.scrollTo(0,+y);}var t=0;window.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){try{sessionStorage.setItem('scanY',window.scrollY);}catch(e){}},150);},{passive:true});})();\
-</script>\
-</body></html>"
+<script>history.scrollRestoration='manual';try{var y=sessionStorage.getItem('scanY');if(y)window.scrollTo(0,+y);}catch(e){}window.addEventListener('beforeunload',function(){try{sessionStorage.setItem('scanY',String(window.scrollY));}catch(e){}});</script>\
+</div></body></html>"
 #endif /* !CONFIG_ETH_UPLINK */

@@ -15,14 +15,14 @@
 <style>\
 *{box-sizing:border-box;margin:0;padding:0;}\
 body{font-family:'Inter',sans-serif;background:#000;color:#fff;padding:1.5rem;min-height:100vh;display:flex;justify-content:center;}\
-#wrap{width:100%%;max-width:600px;}\
+#wrap{width:100%;max-width:600px;}\
 h1{font-size:1.1rem;font-weight:300;color:#fff;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.3rem;}\
 .sub{color:#555;font-size:0.7rem;letter-spacing:1px;margin-bottom:1.5rem;}\
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;margin-bottom:1rem;overflow-x:auto;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.5rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
-@keyframes pulse{0%%,100%%{opacity:0.6;}50%%{opacity:1;}}\
+@keyframes pulse{0%,100%{opacity:0.6;}50%{opacity:1;}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .tbl tbody tr{animation:fadeIn 0.3s ease-out both;}\
 .tbl tbody tr:nth-child(odd){animation-delay:0.05s;}\
@@ -30,8 +30,6 @@ a.home:hover{color:#aaa;}\
 .sbar .b.on{animation:pulse 2s ease-in-out infinite;}\
 .cbtn{transition:all 0.3s ease,box-shadow 0.3s;}\
 .cbtn:hover{box-shadow:0 0 10px rgba(100,149,237,0.2);}\
-.connect-button{display:inline-block;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.7rem;font-weight:500;text-decoration:none;transition:all 0.3s;}\
-.connect-button:hover{background:rgba(255,255,255,0.12);}\
 .tbl{width:100%%;border-collapse:collapse;margin-top:0.5rem;}\
 .tbl th{font-size:0.65rem;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:0.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}\
 .tbl td{padding:0.5rem;font-size:0.8rem;color:#ccc;border-bottom:1px solid rgba(255,255,255,0.03);}\

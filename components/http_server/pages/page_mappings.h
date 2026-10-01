@@ -19,7 +19,6 @@ h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-s
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:1rem;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1.2rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
-#wrap > a[href='/?logout=1']{display:inline-block;margin-bottom:0.4rem;}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .glass:nth-child(2){animation-delay:0.08s;}\
@@ -28,41 +27,30 @@ a.home:hover{color:#aaa;}\
 .tbl tbody tr{animation:fadeIn 0.3s ease-out both;}\
 .ok-btn{transition:all 0.3s ease,box-shadow 0.3s;}\
 .ok-btn:hover{box-shadow:0 0 10px rgba(100,149,237,0.2);}\
-.tbl{width:100%;border-collapse:collapse;}\
+.tbl{width:100%%;border-collapse:collapse;}\
 .tbl th{font-size:0.6rem;font-weight:600;color:#444;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:0.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}\
 .tbl td{padding:0.5rem;border-bottom:1px solid rgba(255,255,255,0.03);font-size:0.8rem;color:#ccc;}\
 .tbl tbody tr:hover td{background:rgba(255,255,255,0.02);}\
-table{width:100%;border-collapse:collapse;}\
+table{width:100%%;border-collapse:collapse;}\
 td{padding:0.3rem 0;vertical-align:top;}\
-td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:30%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
-input[type='text'],input[type='number'],select{width:100%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;overflow:hidden;}\
+td:first-child{color:#555;font-size:0.75rem;padding-right:0.75rem;width:30%%;text-align:right;text-transform:uppercase;letter-spacing:0.5px;}\
+input[type='text'],input[type='number'],select{width:100%%;max-width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#fff;padding:0.5rem;font-size:0.8rem;box-sizing:border-box;overflow:hidden;}\
 input:focus,select:focus{outline:none;border-color:rgba(255,255,255,0.2);}\
 input::placeholder{color:#333;}\
 select{cursor:pointer;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 0.5rem center;padding-right:1.5rem;-webkit-appearance:none;}\
 select option{background:#111;color:#fff;}\
-.ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.5rem;font-size:0.8rem;cursor:pointer;width:100%;margin-top:0.2rem;}\
+.ok-btn{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.5rem;font-size:0.8rem;cursor:pointer;width:100%%;margin-top:0.2rem;}\
 .ok-btn:hover{background:rgba(255,255,255,0.14);}\
 .rbtn{background:rgba(244,67,54,0.1);color:#f44336;border:1px solid rgba(244,67,54,0.15);border-radius:6px;padding:0.3rem 0.6rem;font-size:0.7rem;cursor:pointer;}\
 .gbtn{background:rgba(76,175,80,0.1);color:#4caf50;border:1px solid rgba(76,175,80,0.15);border-radius:6px;padding:0.3rem 0.6rem;font-size:0.7rem;cursor:pointer;}\
 .sbtn{background:rgba(255,255,255,0.06);color:#aaa;border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:0.3rem 0.6rem;font-size:0.7rem;cursor:pointer;}\
 .sbtn:hover{background:rgba(255,255,255,0.1);}\
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;backdrop-filter:blur(5px);}\
+.modal{display:none;position:fixed;top:0;left:0;width:100%%;height:100%%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;backdrop-filter:blur(5px);}\
 .modal.show{display:flex;}\
 .mbox{background:#111;border:1px solid rgba(244,67,54,0.3);border-radius:12px;padding:1.5rem;max-width:350px;text-align:center;}\
 .mbox h3{color:#f44336;margin-bottom:0.8rem;}\
 .mbox p{color:#888;margin-bottom:1rem;font-size:0.85rem;}\
 .mbox button{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.5rem 1.5rem;cursor:pointer;}\
-.select-button{display:inline-block;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:0.3rem 0.7rem;font-size:0.7rem;cursor:pointer;transition:all 0.3s;}\
-.select-button:hover{background:rgba(255,255,255,0.14);}\
-.red-button{display:inline-block;background:rgba(244,67,54,0.1);color:#f44336;border:1px solid rgba(244,67,54,0.2);border-radius:6px;padding:0.3rem 0.6rem;font-size:0.7rem;text-decoration:none;cursor:pointer;transition:all 0.3s;}\
-.red-button:hover{background:rgba(244,67,54,0.2);}\
-.section{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:0.6rem;margin-bottom:1rem;}\
-.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;backdrop-filter:blur(5px);}\
-.modal-overlay.show{display:flex;}\
-.modal-box{background:#111;border:1px solid rgba(244,67,54,0.3);border-radius:12px;padding:1.5rem;max-width:350px;text-align:center;}\
-.modal-box h3{color:#f44336;margin-bottom:0.8rem;}\
-.modal-box p{color:#888;margin-bottom:1rem;font-size:0.85rem;}\
-.modal-box button{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.5rem 1.5rem;cursor:pointer;}\
 @media(max-width:768px){body{padding:1rem;}.tbl{display:block;overflow-x:auto;}.tbl th,.tbl td{padding:0.3rem 0.2rem;font-size:0.7rem;}}\
 </style>\
 <script>\
@@ -107,8 +95,8 @@ function fillDhcpForm(mac,ip,name){document.getElementById('dhcp_mac').value=mac
 <tr><td>MAC</td><td><input type='text' name='dhcp_mac' id='dhcp_mac' placeholder='AA:BB:CC:DD:EE:FF'/></td></tr>\
 <tr><td>IP</td><td><input type='text' name='dhcp_ip' id='dhcp_ip' placeholder='192.168.4.100'/></td></tr>\
 <tr><td>Name</td><td><input type='text' name='dhcp_name' id='dhcp_name'/></td></tr>\
-<tr><td></td><td><input type='submit' name='dhcp_action' value='Add Reservation' class='ok-btn'/>\
-<input type='submit' name='dhcp_action' value='Block' class='rbtn' style='width:100%;padding:0.5rem;margin-top:0.2rem;' onclick=\"document.getElementById('dhcp_ip').value='0.0.0.0';\"/></td></tr>\
+<tr><td></td><td><input type='submit' name='dhcp_action' value='Add' class='ok-btn'/>\
+<input type='submit' name='dhcp_action' value='Block' class='rbtn' style='width:100%%;padding:0.5rem;margin-top:0.2rem;' onclick=\"document.getElementById('dhcp_ip').value='0.0.0.0';\"/></td></tr>\
 </table></form></div>"
 
 #define MAPPINGS_CHUNK_PORTFWD_HEAD "\
@@ -134,7 +122,7 @@ function fillDhcpForm(mac,ip,name){document.getElementById('dhcp_mac').value=mac
 <tr><td>Ext</td><td><input type='number' name='ext_port' min='1' max='65535' placeholder='8080'/></td></tr>\
 <tr><td>IP</td><td><input type='text' name='int_ip'/></td></tr>\
 <tr><td>Int</td><td><input type='number' name='int_port' min='1' max='65535' placeholder='80'/></td></tr>\
-<tr><td></td><td><input type='submit' name='port_action' value='Add Forward' class='ok-btn'/></td></tr>\
+<tr><td></td><td><input type='submit' name='port_action' value='Add' class='ok-btn'/></td></tr>\
 </table></form></div>"
 
 #define MAPPINGS_CHUNK_PAGE_FOOTER "\

@@ -74,7 +74,6 @@ h1{font-size:1.1rem;font-weight:300;color:#fff;text-align:center;margin-bottom:0
 <a href='/scan' class='btn'><span>📡</span>Scan</a>\
 <a href='/config' class='btn'><span>⚙️</span>Config</a>\
 <a href='/mappings' class='btn'><span>🔀</span>Mappings</a>\
-<a href='/firewall' class='btn'><span>🛡️</span>Firewall</a>\
 </div></div>"
 #else
 #define INDEX_CHUNK_BUTTONS "\
@@ -83,7 +82,6 @@ h1{font-size:1.1rem;font-weight:300;color:#fff;text-align:center;margin-bottom:0
 <div class='grid'>\
 <a href='/config' class='btn'><span>⚙️</span>Config</a>\
 <a href='/mappings' class='btn'><span>🔀</span>Mappings</a>\
-<a href='/firewall' class='btn'><span>🛡️</span>Firewall</a>\
 </div></div>"
 #endif
 /* Auth UI streamed here */

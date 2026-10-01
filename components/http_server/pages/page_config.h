@@ -21,6 +21,7 @@ h2{font-size:0.7rem;font-weight:600;color:#555;text-transform:uppercase;letter-s
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.2rem;margin-bottom:0.8rem;}\
 a.home{display:inline-flex;align-items:center;gap:0.5rem;color:#555;text-decoration:none;font-size:0.75rem;margin-bottom:1rem;transition:color 0.3s;}\
 a.home:hover{color:#aaa;}\
+#wrap > a[href='/?logout=1']{display:inline-block;margin-bottom:0.4rem;}\
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}\
 .glass{animation:fadeIn 0.5s ease-out both;}\
 .glass:nth-child(2){animation-delay:0.08s;}\

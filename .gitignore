@@ -12,7 +12,6 @@ managed_components/
 dependencies.lock
 .gemini/
 sdkconfig.old
-.uitest/*.exe
-.uitest/out/
+.uitest/
 !sdkconfig.defaults
 !sdkconfig.defaults.*
